@@ -1,19 +1,50 @@
 # Secure Role-Based Task Management System
 
-A full-stack web application built as a backend-focused internship assignment. It features a scalable REST API with JWT authentication, role-based access control, full CRUD operations, and a clean React frontend to interact with the API.
+> A scalable, production-ready REST API with JWT authentication, role-based access control, and a React frontend — built as part of a Backend Developer Internship assignment.
+
+[![Node.js](https://img.shields.io/badge/Node.js-18+-green?style=flat-square&logo=node.js)](https://nodejs.org)
+[![Express](https://img.shields.io/badge/Express.js-4.x-black?style=flat-square&logo=express)](https://expressjs.com)
+[![MongoDB](https://img.shields.io/badge/MongoDB-Mongoose-green?style=flat-square&logo=mongodb)](https://mongodb.com)
+[![React](https://img.shields.io/badge/React-18-blue?style=flat-square&logo=react)](https://reactjs.org)
+[![License](https://img.shields.io/badge/License-MIT-yellow?style=flat-square)](LICENSE)
 
 ---
 
-## Tech Stack
+## 👨‍💻 Developer
+
+**Aditya Dash** — MERN Stack Developer  
+📍 Bhubaneswar, India  
+📧 [adityadash05@gmail.com](mailto:adityadash05@gmail.com)  
+📞 +91 8260540773  
+🌐 [Portfolio](https://adityadash-portfolio.vercel.app) &nbsp;|&nbsp; [LinkedIn](https://www.linkedin.com/in/aditya-dash-421748311) &nbsp;|&nbsp; [GitHub](https://github.com/adi0tya)
+
+> Results-driven MERN Stack Developer specializing in scalable, real-time web applications. Strong experience in building REST APIs, optimizing database performance, and developing full-stack systems using React, Node.js, Express, and MongoDB.
+
+---
+
+## 📖 Project Overview
+
+This project is a **secure and scalable REST API system** designed to demonstrate production-level backend development practices. It includes:
+
+- **JWT-based authentication** — register, login, and protected routes
+- **Role-based access control** — separate permissions for `user` and `admin` roles
+- **Full CRUD operations** — create, read, update, and delete tasks
+- **Basic frontend UI** — React app to register, login, and interact with all APIs
+- **API documentation** — interactive Swagger docs at `/api-docs`
+- **Security** — bcrypt hashing, helmet headers, rate limiting, Joi validation
+
+---
+
+## ⚙️ Tech Stack
 
 **Backend**
 - Node.js + Express.js
 - MongoDB + Mongoose
-- JWT (jsonwebtoken) — authentication
+- JWT (`jsonwebtoken`) — authentication
 - bcryptjs — password hashing
 - Joi — input validation
 - Swagger UI — API documentation
-- Helmet + express-rate-limit — security
+- Helmet + express-rate-limit — security middleware
 
 **Frontend**
 - React.js (Vite)
@@ -23,40 +54,40 @@ A full-stack web application built as a backend-focused internship assignment. I
 - React Hot Toast
 
 **Tools**
-- Swagger (`/api-docs`)
-- Postman
 - GitHub
+- Postman / Swagger
+- VS Code
 - Docker + Docker Compose
 
 ---
 
-## Project Structure
+## 📂 Project Structure
 
 ```
 task-manager/
 ├── backend/
 │   ├── src/
-│   │   ├── config/         # DB connection
-│   │   ├── controllers/    # Auth, Tasks, Admin
+│   │   ├── config/         # Database connection
+│   │   ├── controllers/    # Auth, Tasks, Admin logic
 │   │   ├── middleware/     # Auth, Role, Error, Logger
-│   │   ├── models/         # User, Task schemas
+│   │   ├── models/         # User & Task schemas
 │   │   ├── routes/         # Versioned API routes
 │   │   ├── utils/          # JWT & error helpers
-│   │   └── validations/    # Joi schemas
+│   │   └── validations/    # Joi validation schemas
 │   ├── swagger.js
 │   └── server.js
 ├── frontend/
 │   └── src/
 │       ├── components/     # Navbar, TaskCard, TaskModal
-│       ├── context/        # AuthContext
+│       ├── context/        # AuthContext (JWT + localStorage)
 │       ├── pages/          # Login, Register, Dashboard, Tasks, Admin
-│       └── services/       # Axios API service
+│       └── services/       # Axios API service layer
 └── docker-compose.yml
 ```
 
 ---
 
-## Setup Instructions
+## 🚀 Setup Instructions
 
 ### Prerequisites
 - Node.js 18+
@@ -65,37 +96,40 @@ task-manager/
 ### Backend
 
 ```bash
-# 1. Clone the repository
+# Clone the repository
 git clone https://github.com/adi0tya/Task-manager.git
+
+# Navigate to backend
 cd Task-manager/backend
 
-# 2. Install dependencies
+# Install dependencies
 npm install
 
-# 3. Create environment file
+# Create environment file
 cp .env.example .env
-# Edit .env with your values
+# Fill in your values (see Environment Variables section)
 
-# 4. Start the server
+# Start the development server
 npm run dev
 ```
 
-Server runs at: `http://localhost:5000`  
-Swagger docs at: `http://localhost:5000/api-docs`
+> Server: `http://localhost:5000`  
+> Swagger Docs: `http://localhost:5000/api-docs`
 
 ### Frontend
 
 ```bash
+# Navigate to frontend
 cd Task-manager/frontend
 
-# 1. Install dependencies
+# Install dependencies
 npm install
 
-# 2. Start the dev server
+# Start the dev server
 npm run dev
 ```
 
-Frontend runs at: `http://localhost:5173`
+> Frontend: `http://localhost:5173`
 
 ### Docker (Full Stack)
 
@@ -106,9 +140,9 @@ docker-compose up --build
 
 ---
 
-## Environment Variables
+## 🔐 Environment Variables
 
-Create a `.env` file inside the `backend/` folder:
+Create a `.env` file inside the `backend/` directory:
 
 ```env
 PORT=5000
@@ -121,102 +155,120 @@ CLIENT_URL=http://localhost:5173
 
 ---
 
-## API Endpoints
+## 📡 API Endpoints
 
 ### Auth — `/api/v1/auth`
 
-| Method | Endpoint    | Access | Description       |
-|--------|-------------|--------|-------------------|
-| POST   | `/register` | Public | Register new user |
-| POST   | `/login`    | Public | Login, get token  |
-| GET    | `/me`       | Private | Get current user |
+| Method | Endpoint    | Access  | Description        |
+|--------|-------------|---------|--------------------|
+| POST   | `/register` | Public  | Register new user  |
+| POST   | `/login`    | Public  | Login, get token   |
+| GET    | `/me`       | Private | Get current user   |
 
 ### Tasks — `/api/v1/tasks`
 
-| Method | Endpoint | Access  | Description              |
-|--------|----------|---------|--------------------------|
-| GET    | `/`      | Private | Get logged-in user tasks |
-| POST   | `/`      | Private | Create a new task        |
-| GET    | `/:id`   | Private | Get task by ID           |
-| PUT    | `/:id`   | Private | Update task              |
-| DELETE | `/:id`   | Private | Delete task              |
+| Method | Endpoint | Access  | Description               |
+|--------|----------|---------|---------------------------|
+| GET    | `/`      | Private | Get logged-in user tasks  |
+| POST   | `/`      | Private | Create a new task         |
+| GET    | `/:id`   | Private | Get task by ID            |
+| PUT    | `/:id`   | Private | Update task               |
+| DELETE | `/:id`   | Private | Delete task               |
 
 > Supports query params: `?status=pending&page=1&limit=10`
 
 ### Admin — `/api/v1/admin`
 
-| Method | Endpoint       | Access | Description               |
-|--------|----------------|--------|---------------------------|
-| GET    | `/users`       | Admin  | Get all users             |
-| GET    | `/users/:id`   | Admin  | Get user by ID            |
-| DELETE | `/users/:id`   | Admin  | Delete user + their tasks |
-| GET    | `/tasks`       | Admin  | Get all tasks             |
+| Method | Endpoint       | Access | Description                |
+|--------|----------------|--------|----------------------------|
+| GET    | `/users`       | Admin  | Get all users              |
+| GET    | `/users/:id`   | Admin  | Get user by ID             |
+| DELETE | `/users/:id`   | Admin  | Delete user + their tasks  |
+| GET    | `/tasks`       | Admin  | Get all tasks              |
 
 ---
 
-## Role-Based Access Control
+## 🛡️ Role-Based Access Control
 
-| Role    | Permissions                                                    |
-|---------|----------------------------------------------------------------|
-| `user`  | Register, login, create and manage **own tasks only**          |
-| `admin` | All user permissions + view/delete **all users and all tasks** |
+| Role    | Permissions                                                      |
+|---------|------------------------------------------------------------------|
+| `user`  | Register, login, and manage **own tasks only**                   |
+| `admin` | All user permissions + view/delete **all users and all tasks**   |
 
-**How it works:**
-
-1. On login, a signed JWT token is returned and stored in `localStorage`.
+**Flow:**
+1. On login, a signed JWT is returned and stored in `localStorage`.
 2. Every protected request sends the token via `Authorization: Bearer <token>`.
-3. `authMiddleware` verifies the token and attaches the user to the request.
-4. `roleMiddleware('admin')` checks the user's role and returns `403` if unauthorized.
+3. `authMiddleware` verifies the token and attaches the user to `req.user`.
+4. `roleMiddleware('admin')` checks the role — returns `403` if unauthorized.
 
 ---
 
-## Scalability
+## 📈 Scalability
 
-The project follows a modular, separation-of-concerns architecture that makes it easy to scale:
+The project is built with a **modular, separation-of-concerns architecture** that makes it straightforward to scale:
 
-- Each feature (auth, tasks, admin) is a self-contained module — adding a new feature means adding a new controller, route, and model without touching existing code.
-- Stateless JWT authentication scales horizontally across multiple server instances behind a load balancer.
-- The codebase is **microservices-ready** — auth, tasks, and admin can be extracted into independent services with minimal refactoring.
+- Each feature (auth, tasks, admin) is a self-contained module — new features can be added without touching existing code.
+- **Stateless JWT** authentication scales horizontally across multiple instances behind a load balancer.
+- The codebase is **microservices-ready** — each module can be extracted into an independent service with minimal refactoring.
 
 **Planned improvements:**
-- Redis caching for frequent task/user queries
-- Message queues (BullMQ) for async operations
-- Kubernetes or PM2 cluster mode for horizontal scaling
-- Centralized logging with Winston + ELK stack
+- Redis caching for high-frequency task/user queries
+- Microservices architecture for independent scaling
+- Load balancing with Nginx or AWS ALB
 - Full Docker orchestration for production deployment
+- Centralized logging with Winston + ELK stack
 
 ---
 
-## Demo Credentials
+## 🧪 Demo Credentials
 
-> Register via the UI or API. To test admin access, register with `"role": "admin"` in the request body.
+> Register via the UI or use these pre-seeded accounts for testing.
 
-**Admin**
+**Admin Account**
 ```
-Email:    admin@demo.com
-Password: admin123
-Role:     admin
+Email:    admin@test.com
+Password: 123456
 ```
 
-**User**
+**User Account**
 ```
-Email:    user@demo.com
-Password: user123
-Role:     user
+Email:    user@test.com
+Password: 123456
 ```
 
 ---
 
-## Live Demo
+## 🌐 Live Links
 
-| Service     | URL                                          |
-|-------------|----------------------------------------------|
-| Frontend    | _Coming soon_                                |
-| Backend API | _Coming soon_                                |
-| API Docs    | `http://localhost:5000/api-docs` (local)     |
+| Service     | URL                                              |
+|-------------|--------------------------------------------------|
+| Frontend    | _Coming soon_                                    |
+| Backend API | _Coming soon_                                    |
+| API Docs    | `http://localhost:5000/api-docs` (local)         |
+| GitHub Repo | https://github.com/adi0tya/Task-manager          |
 
 ---
 
-## License
+## 🗂️ Other Projects
 
-MIT
+### [SyncSpace](https://github.com/adi0tya)
+A real-time collaborative study platform designed for students.
+- **Features:** Live chat, study rooms, file sharing, Pomodoro timer, voice communication
+- **Stack:** React, Node.js, Express, MongoDB, Socket.io
+
+### [Dynamic API Generator](https://github.com/adi0tya)
+A platform to create and manage REST APIs dynamically without writing backend code.
+- **Features:** Live endpoint routing, API testing interface, dynamic schema management
+- **Stack:** React, Node.js, Express
+
+---
+
+## 📄 License
+
+This project is licensed under the [MIT License](LICENSE).
+
+---
+
+<p align="center">
+  Built with ❤️ by <a href="https://adityadash-portfolio.vercel.app">Aditya Dash</a>
+</p>
