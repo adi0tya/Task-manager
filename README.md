@@ -1,4 +1,4 @@
-# Secure Role-Based Task Management System
+ # Secure Role-Based Task Management System
 
 > A scalable, production-ready REST API with JWT authentication, role-based access control, and a React frontend — built as part of a Backend Developer Internship assignment.
 
@@ -16,7 +16,7 @@
 📍 Bhubaneswar, India  
 📧 [adityadash05@gmail.com](mailto:adityadash05@gmail.com)  
 📞 +91 8260540773  
-🌐 [Portfolio](https://adityadash-portfolio.vercel.app) &nbsp;|&nbsp; [LinkedIn](https://www.linkedin.com/in/aditya-dash-421748311) &nbsp;|&nbsp; [GitHub](https://github.com/adi0tya)
+🌐 [Portfolio](https://adityadash-portfolio.vercel.app) &nbsp;|&nbsp; [LinkedIn](https://www.linkedin.com/in/aditya-dash-421748311) &nbsp;|&nbsp; [GitHub](https://github.com/adi0tya) &nbsp;|&nbsp; [📄 Resume](https://github.com/adi0tya/Resume)
 
 > Results-driven MERN Stack Developer specializing in scalable, real-time web applications. Strong experience in building REST APIs, optimizing database performance, and developing full-stack systems using React, Node.js, Express, and MongoDB.
 
@@ -260,6 +260,12 @@ A real-time collaborative study platform designed for students.
 A platform to create and manage REST APIs dynamically without writing backend code.
 - **Features:** Live endpoint routing, API testing interface, dynamic schema management
 - **Stack:** React, Node.js, Express
+
+---
+
+## 📄 Resume
+
+View my full resume here: **[github.com/adi0tya/Resume](https://github.com/adi0tya/Resume)**
 
 ---
 
