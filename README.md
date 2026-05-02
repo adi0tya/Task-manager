@@ -1,21 +1,32 @@
 # Secure Role-Based Task Management System
 
-A production-ready full-stack web application demonstrating clean REST API design, JWT authentication, role-based access control, and a React frontend.
+A full-stack web application built as a backend-focused internship assignment. It features a scalable REST API with JWT authentication, role-based access control, full CRUD operations, and a clean React frontend to interact with the API.
 
 ---
 
 ## Tech Stack
 
-| Layer      | Technology                                      |
-|------------|-------------------------------------------------|
-| Backend    | Node.js, Express.js                             |
-| Database   | MongoDB + Mongoose                              |
-| Auth       | JWT (jsonwebtoken) + bcryptjs                   |
-| Validation | Joi                                             |
-| Docs       | Swagger (swagger-jsdoc + swagger-ui-express)    |
-| Frontend   | React 18 + Vite + Tailwind CSS                  |
-| HTTP       | Axios                                           |
-| Docker     | Docker + Docker Compose                         |
+**Backend**
+- Node.js + Express.js
+- MongoDB + Mongoose
+- JWT (jsonwebtoken) — authentication
+- bcryptjs — password hashing
+- Joi — input validation
+- Swagger UI — API documentation
+- Helmet + express-rate-limit — security
+
+**Frontend**
+- React.js (Vite)
+- Tailwind CSS
+- Axios
+- React Router DOM
+- React Hot Toast
+
+**Tools**
+- Swagger (`/api-docs`)
+- Postman
+- GitHub
+- Docker + Docker Compose
 
 ---
 
@@ -25,28 +36,21 @@ A production-ready full-stack web application demonstrating clean REST API desig
 task-manager/
 ├── backend/
 │   ├── src/
-│   │   ├── config/          # Database connection
-│   │   ├── controllers/     # Route handlers (auth, tasks, admin)
-│   │   ├── middleware/       # auth, role, error, logger
-│   │   ├── models/          # Mongoose schemas (User, Task)
-│   │   ├── routes/          # Express routers (versioned)
-│   │   ├── utils/           # JWT helper, error helper
-│   │   ├── validations/     # Joi schemas
-│   │   └── app.js           # Express app setup
-│   ├── swagger.js           # Swagger config
-│   ├── server.js            # Entry point
-│   ├── .env.example
-│   ├── Dockerfile
-│   └── package.json
+│   │   ├── config/         # DB connection
+│   │   ├── controllers/    # Auth, Tasks, Admin
+│   │   ├── middleware/     # Auth, Role, Error, Logger
+│   │   ├── models/         # User, Task schemas
+│   │   ├── routes/         # Versioned API routes
+│   │   ├── utils/          # JWT & error helpers
+│   │   └── validations/    # Joi schemas
+│   ├── swagger.js
+│   └── server.js
 ├── frontend/
-│   ├── src/
-│   │   ├── components/      # Navbar, TaskCard, TaskModal, ProtectedRoute
-│   │   ├── context/         # AuthContext (React Context + localStorage)
-│   │   ├── pages/           # Login, Register, Dashboard, Tasks, AdminPanel
-│   │   └── services/        # Axios API service (auth, tasks, admin)
-│   ├── Dockerfile
-│   ├── nginx.conf
-│   └── package.json
+│   └── src/
+│       ├── components/     # Navbar, TaskCard, TaskModal
+│       ├── context/        # AuthContext
+│       ├── pages/          # Login, Register, Dashboard, Tasks, Admin
+│       └── services/       # Axios API service
 └── docker-compose.yml
 ```
 
@@ -57,56 +61,63 @@ task-manager/
 ### Prerequisites
 - Node.js 18+
 - MongoDB (local or Atlas)
-- npm
 
-### 1. Backend
+### Backend
 
 ```bash
-cd task-manager/backend
+# 1. Clone the repository
+git clone https://github.com/adi0tya/Task-manager.git
+cd Task-manager/backend
+
+# 2. Install dependencies
 npm install
+
+# 3. Create environment file
 cp .env.example .env
-# Edit .env with your MongoDB URI and JWT secret
+# Edit .env with your values
+
+# 4. Start the server
 npm run dev
 ```
 
-Backend runs at: `http://localhost:5000`  
-API Docs (Swagger): `http://localhost:5000/api-docs`
+Server runs at: `http://localhost:5000`  
+Swagger docs at: `http://localhost:5000/api-docs`
 
-### 2. Frontend
+### Frontend
 
 ```bash
-cd task-manager/frontend
+cd Task-manager/frontend
+
+# 1. Install dependencies
 npm install
+
+# 2. Start the dev server
 npm run dev
 ```
 
 Frontend runs at: `http://localhost:5173`
 
-### 3. Docker (Full Stack)
+### Docker (Full Stack)
 
 ```bash
-cd task-manager
+cd Task-manager
 docker-compose up --build
 ```
-
-- Frontend: `http://localhost`
-- Backend: `http://localhost:5000`
-- API Docs: `http://localhost:5000/api-docs`
 
 ---
 
 ## Environment Variables
 
-### Backend `.env`
+Create a `.env` file inside the `backend/` folder:
 
-| Variable        | Description                        | Default                              |
-|-----------------|------------------------------------|--------------------------------------|
-| `PORT`          | Server port                        | `5000`                               |
-| `NODE_ENV`      | Environment                        | `development`                        |
-| `MONGO_URI`     | MongoDB connection string          | `mongodb://localhost:27017/task-manager` |
-| `JWT_SECRET`    | JWT signing secret (keep private)  | —                                    |
-| `JWT_EXPIRES_IN`| Token expiry                       | `7d`                                 |
-| `CLIENT_URL`    | Frontend URL for CORS              | `http://localhost:5173`              |
+```env
+PORT=5000
+NODE_ENV=development
+MONGO_URI=your_mongodb_connection_string
+JWT_SECRET=your_secret_key
+JWT_EXPIRES_IN=7d
+CLIENT_URL=http://localhost:5173
+```
 
 ---
 
@@ -114,84 +125,98 @@ docker-compose up --build
 
 ### Auth — `/api/v1/auth`
 
-| Method | Endpoint    | Access  | Description          |
-|--------|-------------|---------|----------------------|
-| POST   | `/register` | Public  | Register new user    |
-| POST   | `/login`    | Public  | Login, get JWT token |
-| GET    | `/me`       | Private | Get current user     |
+| Method | Endpoint    | Access | Description       |
+|--------|-------------|--------|-------------------|
+| POST   | `/register` | Public | Register new user |
+| POST   | `/login`    | Public | Login, get token  |
+| GET    | `/me`       | Private | Get current user |
 
 ### Tasks — `/api/v1/tasks`
 
-| Method | Endpoint | Access  | Description                    |
-|--------|----------|---------|--------------------------------|
-| GET    | `/`      | Private | Get logged-in user's tasks     |
-| POST   | `/`      | Private | Create a new task              |
-| GET    | `/:id`   | Private | Get single task by ID          |
-| PUT    | `/:id`   | Private | Update task                    |
-| DELETE | `/:id`   | Private | Delete task                    |
+| Method | Endpoint | Access  | Description              |
+|--------|----------|---------|--------------------------|
+| GET    | `/`      | Private | Get logged-in user tasks |
+| POST   | `/`      | Private | Create a new task        |
+| GET    | `/:id`   | Private | Get task by ID           |
+| PUT    | `/:id`   | Private | Update task              |
+| DELETE | `/:id`   | Private | Delete task              |
 
-Query params for GET `/`: `status`, `page`, `limit`
+> Supports query params: `?status=pending&page=1&limit=10`
 
 ### Admin — `/api/v1/admin`
 
-| Method | Endpoint       | Access | Description              |
-|--------|----------------|--------|--------------------------|
-| GET    | `/users`       | Admin  | Get all users            |
-| GET    | `/users/:id`   | Admin  | Get user by ID           |
-| DELETE | `/users/:id`   | Admin  | Delete user + their tasks|
-| GET    | `/tasks`       | Admin  | Get all tasks            |
+| Method | Endpoint       | Access | Description               |
+|--------|----------------|--------|---------------------------|
+| GET    | `/users`       | Admin  | Get all users             |
+| GET    | `/users/:id`   | Admin  | Get user by ID            |
+| DELETE | `/users/:id`   | Admin  | Delete user + their tasks |
+| GET    | `/tasks`       | Admin  | Get all tasks             |
 
 ---
 
 ## Role-Based Access Control
 
-| Role    | Permissions                                                  |
-|---------|--------------------------------------------------------------|
-| `user`  | Register, login, CRUD on **own tasks only**                  |
-| `admin` | All user permissions + view/delete **all users and tasks**   |
+| Role    | Permissions                                                    |
+|---------|----------------------------------------------------------------|
+| `user`  | Register, login, create and manage **own tasks only**          |
+| `admin` | All user permissions + view/delete **all users and all tasks** |
 
-### How it works
+**How it works:**
 
-1. `authMiddleware` — verifies the JWT from `Authorization: Bearer <token>` header. Attaches `req.user`.
-2. `roleMiddleware('admin')` — checks `req.user.role`. Returns 403 if not authorized.
-
----
-
-## Security Features
-
-- Passwords hashed with **bcrypt** (12 salt rounds)
-- JWT tokens with configurable expiry
-- `helmet` for HTTP security headers
-- `express-rate-limit` — 100 req/15min per IP
-- Input validation with **Joi** on all endpoints
-- Password field excluded from all DB queries by default (`select: false`)
-- CORS restricted to configured `CLIENT_URL`
-- Request body size limited to 10kb
+1. On login, a signed JWT token is returned and stored in `localStorage`.
+2. Every protected request sends the token via `Authorization: Bearer <token>`.
+3. `authMiddleware` verifies the token and attaches the user to the request.
+4. `roleMiddleware('admin')` checks the user's role and returns `403` if unauthorized.
 
 ---
 
-## Scalability Notes
+## Scalability
 
-This project is structured for easy horizontal scaling:
+The project follows a modular, separation-of-concerns architecture that makes it easy to scale:
 
-- **Modular architecture** — each concern (auth, tasks, admin) is a self-contained module. Adding a new feature means adding a new controller/route/model without touching existing code.
-- **Stateless JWT auth** — no server-side sessions, scales across multiple instances behind a load balancer.
-- **Microservices-ready** — auth, tasks, and admin modules can be extracted into separate services with minimal refactoring.
-- **Redis caching** — task list queries and user lookups are ideal candidates for Redis caching to reduce DB load at scale.
-- **Docker support** — containerized for consistent deployment. Add a load balancer (nginx/HAProxy) in front of multiple backend replicas.
-- **Database indexing** — `userId` and `status` fields on Task are indexed for fast filtered queries.
+- Each feature (auth, tasks, admin) is a self-contained module — adding a new feature means adding a new controller, route, and model without touching existing code.
+- Stateless JWT authentication scales horizontally across multiple server instances behind a load balancer.
+- The codebase is **microservices-ready** — auth, tasks, and admin can be extracted into independent services with minimal refactoring.
 
-Future additions:
-- Redis for caching frequent reads
-- Message queue (BullMQ/RabbitMQ) for async operations
-- Horizontal scaling with PM2 cluster mode or Kubernetes
-- Centralized logging (Winston + ELK stack)
+**Planned improvements:**
+- Redis caching for frequent task/user queries
+- Message queues (BullMQ) for async operations
+- Kubernetes or PM2 cluster mode for horizontal scaling
+- Centralized logging with Winston + ELK stack
+- Full Docker orchestration for production deployment
 
 ---
 
-## API Documentation
+## Demo Credentials
 
-Interactive Swagger docs available at:  
-`http://localhost:5000/api-docs`
+> Register via the UI or API. To test admin access, register with `"role": "admin"` in the request body.
 
-All endpoints are documented with request/response schemas and authentication requirements.
+**Admin**
+```
+Email:    admin@demo.com
+Password: admin123
+Role:     admin
+```
+
+**User**
+```
+Email:    user@demo.com
+Password: user123
+Role:     user
+```
+
+---
+
+## Live Demo
+
+| Service     | URL                                          |
+|-------------|----------------------------------------------|
+| Frontend    | _Coming soon_                                |
+| Backend API | _Coming soon_                                |
+| API Docs    | `http://localhost:5000/api-docs` (local)     |
+
+---
+
+## License
+
+MIT
